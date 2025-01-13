@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 export const Auth = () => {
   const [email, setEmail] = useState("");
@@ -22,22 +24,31 @@ export const Auth = () => {
     }
   };
 
-  
+ 
 
   return (
     <div>
-      <input
+    
+    <div className="auth-section">
+    Login
+    <div className="auth-section-input">
+      <TextField
+      variant="outlined"
         placeholder="Email..."
         onChange={(e) => setEmail(e.target.value)}
       />
-      <input
+      <TextField
         placeholder="Password..."
         onChange={(e) => setPassword(e.target.value)}
         type="password"
       />
-      <button onClick={signIn}>Sign in</button>
+      </div>
+      <div className="auth-section-buttons">
+      <Button  variant="outlined" onClick={signIn}>Sign in</Button>
       
-      <button onClick={logout}>Log Out</button>
+      <Button variant="outlined" onClick={logout}>Log Out</Button>
+      </div>
+      </div>
     </div>
   );
 };
