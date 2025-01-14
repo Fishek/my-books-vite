@@ -13,17 +13,10 @@ export const Auth = () => {
       await createUserWithEmailAndPassword(auth, email, password);
     } catch (err) {
       console.error(err);
-    }
+    }npm
   };
 
-  const logout = async () => {
-    try {
-      await signOut(auth);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
+  
  
 
   return (
@@ -46,7 +39,7 @@ export const Auth = () => {
       <div className="auth-section-buttons">
       <Button  variant="outlined" onClick={signIn}>Sign in</Button>
       
-      <Button variant="outlined" onClick={logout}>Log Out</Button>
+      
       </div>
       </div>
     </div>

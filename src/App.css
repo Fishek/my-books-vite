@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-
+  
 }
 
 
@@ -15,7 +15,7 @@
   flex-direction: column;
 
   height: 300px;
-  background-color: rgb(255, 255, 255);
+  background-color:#F9E795;
   border-radius: 20px;
   -webkit-box-shadow: 8px 8px 38px -8px rgba(66, 68, 90, 1);
 -moz-box-shadow: 8px 8px 38px -8px rgba(66, 68, 90, 1);
@@ -33,5 +33,49 @@ box-shadow: 8px 8px 38px -8px rgba(66, 68, 90, 1);
   width: 188px;
   display: flex;
   justify-content: space-between;
+  
+}
+
+.button-log-out {
+  
+  position: absolute;
+  left: 1000px;
+}
+
+
+.book-list {
+ 
+}
+
+.book-list-main {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.book-card {
+  width: 300px;
+  height: 400px;
+  background-color:  #8AAAE5;
+  color:#00246B;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  -webkit-box-shadow: 3px 8px 24px -11px rgba(66, 68, 90, 1);
+-moz-box-shadow: 3px 8px 24px -11px rgba(66, 68, 90, 1);
+box-shadow: 3px 8px 24px -11px rgba(66, 68, 90, 1);
+}
+
+.book-card-top
+{
+  width: 100%;
+  height: 60%;
+}
+
+.book-card-bottom
+{
+  width: 100%;
+  height: 40%;
+  font-size: 30px;
   
 }
