@@ -5,7 +5,7 @@ import Book from "./book";
 
 
 
-function BookList({books}) {
+function BookList({books, deleteBook}) {
 
     
   
@@ -15,7 +15,7 @@ function BookList({books}) {
     {books.map((book) => (
       
       <div key={book.id} className="book-list">
-      <Book book = {book}/>
+      <Book book = {book} deleteBook={deleteBook} />
       </div>
         
      
@@ -26,3 +26,4 @@ function BookList({books}) {
 }
 
 export default BookList;
+

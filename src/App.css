@@ -42,11 +42,6 @@ box-shadow: 8px 8px 38px -8px rgba(66, 68, 90, 1);
   left: 1000px;
 }
 
-
-.book-list {
- 
-}
-
 .book-list-main {
   display: flex;
   justify-content: space-around;
@@ -54,6 +49,7 @@ box-shadow: 8px 8px 38px -8px rgba(66, 68, 90, 1);
 }
 
 .book-card {
+
   width: 300px;
   height: 400px;
   background-color:  #8AAAE5;
@@ -72,10 +68,3 @@ box-shadow: 3px 8px 24px -11px rgba(66, 68, 90, 1);
   height: 60%;
 }
 
-.book-card-bottom
-{
-  width: 100%;
-  height: 40%;
-  font-size: 30px;
-  
-}

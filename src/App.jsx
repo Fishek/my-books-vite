@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Auth } from "./components/auth";
 import "./App.css";
 import { db } from "./firebase";
-import { getDocs, collection, addDoc } from "firebase/firestore";
+import { getDocs, collection, addDoc, deleteDoc, doc} from "firebase/firestore";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./firebase";
 import Button from "@mui/material/Button";
@@ -46,6 +46,9 @@ function App() {
         author: newBookAuthor,
         year: newBookYear,
       });
+      setNewBookTitle('');
+      setNewBookAuthor('');
+      setNewBookYear('');
     } catch (err) {
       console.error(err);
     }
@@ -73,6 +76,14 @@ function App() {
       console.error(err);
     }
   };
+
+  const deleteBook = async (bookToRemoveId) => {
+    const filteredList = doc(db, "Books", bookToRemoveId);
+    await deleteDoc(filteredList);
+   
+  }
+
+  
 
   return (
     <div>
@@ -102,7 +113,7 @@ function App() {
             </Button>
           </form>
 
-          <BookList books = {books}/>
+          <BookList books = {books} deleteBook={deleteBook} />
         </div>
       )}
     </div>

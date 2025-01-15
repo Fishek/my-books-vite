@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 
 
 
-function Book({book}) {
+function Book({book, deleteBook}) {
 
     
   
@@ -14,11 +14,12 @@ function Book({book}) {
       <div className="book-card-top">
       <h1>{book.title}</h1>
       <p>{book.author}</p>
+      
       </div>
 
-      <div className="book-card-bottom" >
+      <button onClick={() => deleteBook(book.id)}>
       X
-      </div>
+      </button>
      
   
     </div>
