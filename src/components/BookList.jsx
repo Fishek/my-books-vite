@@ -5,7 +5,7 @@ import Book from "./book";
 
 
 
-function BookList({books, deleteBook}) {
+function BookList({books, onDeleteBook}) {
 
     
   
@@ -15,7 +15,7 @@ function BookList({books, deleteBook}) {
     {books.map((book) => (
       
       <div key={book.id} className="book-list">
-      <Book book = {book} deleteBook={deleteBook} />
+      <Book book = {book} onDeleteBook={onDeleteBook} />
       </div>
         
      

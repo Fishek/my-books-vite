@@ -1,41 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import { Auth } from "./components/auth";
 import "./App.css";
 import { db } from "./firebase";
-import { getDocs, collection, addDoc, deleteDoc, doc} from "firebase/firestore";
+import {
+  getDocs,
+  collection,
+  addDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "./firebase";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import BookList from "./components/booklist";
-import Book from "./components/book";
-
 
 function App() {
   const [books, setBooks] = useState([]);
   const [newBookTitle, setNewBookTitle] = useState("");
   const [newBookAuthor, setNewBookAuthor] = useState("");
   const [newBookYear, setNewBookYear] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState("loading");
+
 
   const bookCollectionRef = collection(db, "Books");
 
-  useEffect(() => {
-    const getBookList = async () => {
-      try {
-        const data = await getDocs(bookCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setBooks(filteredData);
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  const getBookList = async () => {
+    try {
+      const data = await getDocs(bookCollectionRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setBooks(filteredData);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
+
+  useEffect(() => {
     getBookList();
+  }, []);
+
+  useEffect(() => {
+    console.log("hej")
   }, []);
 
   const handleSubmitBook = async (e) => {
@@ -46,27 +55,20 @@ function App() {
         author: newBookAuthor,
         year: newBookYear,
       });
-      setNewBookTitle('');
-      setNewBookAuthor('');
-      setNewBookYear('');
+      getBookList();
     } catch (err) {
       console.error(err);
     }
   };
 
   useEffect(() => {
-    const authChange = onAuthStateChanged(auth, (currentUser) => {
+    onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setIsLoggedIn(true);
-        setUser(currentUser);
-        console.log("User is logged in:", currentUser);
       } else {
         setIsLoggedIn(false);
-        setUser(null);
-        console.log("User is logged out");
       }
     });
-    return () => authChange();
   }, []);
 
   const logout = async () => {
@@ -77,33 +79,44 @@ function App() {
     }
   };
 
-  const deleteBook = async (bookToRemoveId) => {
-    const filteredList = doc(db, "Books", bookToRemoveId);
+  const deleteBook = async (bookId) => {
+    const filteredList = doc(db, "Books", bookId);
     await deleteDoc(filteredList);
-   
-  }
+    getBookList();
+  };
 
-  
+  if (isLoggedIn === "loading") {
+    return <div></div>;
+  }
 
   return (
     <div>
+      <h1>BookList</h1>
+
       {!isLoggedIn ? (
         <Auth />
       ) : (
         <div className="form-container">
-          <Button className="button-log-out" variant="outlined" onClick={logout}>
+          <Button
+            className="button-log-out"
+            variant="outlined"
+            onClick={logout}
+          >
             Log Out
           </Button>
-          <form style={{ marginTop: "20px", marginBottom:"50px" }} onSubmit={handleSubmitBook}>
+          <form className="form-form" onSubmit={handleSubmitBook}>
             <TextField
+              className="form-input"
               placeholder="Movie title..."
               onChange={(e) => setNewBookTitle(e.target.value)}
             />
             <TextField
+              className="form-input"
               placeholder="Author name..."
               onChange={(e) => setNewBookAuthor(e.target.value)}
             />
             <TextField
+              className="form-input"
               placeholder="Year..."
               type="number"
               onChange={(e) => setNewBookYear(Number(e.target.value))}
@@ -113,7 +126,7 @@ function App() {
             </Button>
           </form>
 
-          <BookList books = {books} deleteBook={deleteBook} />
+          <BookList books={books} onDeleteBook={deleteBook} />
         </div>
       )}
     </div>
